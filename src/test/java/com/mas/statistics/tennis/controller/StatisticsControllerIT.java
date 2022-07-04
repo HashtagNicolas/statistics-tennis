@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mas.statistics.tennis.util.ConstsUtils;
 import org.junit.Before;
-import org.junit.Test;
+import  org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @RunWith(SpringRunner.class)
-public class StatisticsControllerIT {
+class StatisticsControllerIT {
 
     @Autowired
     private MockMvc mockMvc;
@@ -36,12 +36,12 @@ public class StatisticsControllerIT {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Before
-    public void setup(){
+    void setup(){
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
     @Test
-    public void CODE_200_GetStatistics_Test() throws Exception {
+    void CODE_200_GetStatistics_Test() throws Exception {
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/statistics/tennis/statistics/players")
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andDo(print())

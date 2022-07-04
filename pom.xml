@@ -24,11 +24,12 @@
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
         <slf4j-api.version>1.7.36</slf4j-api.version>
         <junit-jupiter-engine.version>5.8.1</junit-jupiter-engine.version>
-        <mockito-core.version>2.21.0</mockito-core.version>
+        <mockito-core.version>3.11.2</mockito-core.version>
         <mockito-junit-jupiter.version>2.23.0</mockito-junit-jupiter.version>
         <json.version>20220320</json.version>
         <openapi-generator-maven-plugin.version>5.4.0</openapi-generator-maven-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <junit-platform-surefire-provider.version>1.0.1</junit-platform-surefire-provider.version>
         <junit.version>4.13.1</junit.version>
     </properties>
@@ -154,6 +155,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <jvmArguments>--add-modules=java.xml.ws.annotation</jvmArguments>
                     <excludes>
                         <exclude>
                             <groupId>org.project-lombok</groupId>
@@ -165,6 +167,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -224,6 +227,7 @@
                 <configuration>
                     <includes>**/*IT.java</includes>
                     <includes>**/*Test.java</includes>
+                    <useSystemClassLoader>false</useSystemClassLoader>
                 </configuration>
             </plugin>
         </plugins>

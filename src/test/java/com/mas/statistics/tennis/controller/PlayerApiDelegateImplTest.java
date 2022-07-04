@@ -5,13 +5,14 @@ import com.mas.statistics.tennis.dto.DataDTO;
 import com.mas.statistics.tennis.dto.PlayerDTO;
 import com.mas.statistics.tennis.service.PlayerService;
 import org.junit.Before;
-import org.junit.Test;
+import  org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
+@AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
-public class PlayerApiDelegateImplTest {
+class PlayerApiDelegateImplTest {
 
     @InjectMocks
     private PlayerApiDelegateImpl playerApiDelegate;
@@ -34,7 +36,7 @@ public class PlayerApiDelegateImplTest {
 
     @Before
     public void setup(){
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         MockMvcBuilders.standaloneSetup(playerApiDelegate).build();
     }
 
@@ -83,7 +85,7 @@ public class PlayerApiDelegateImplTest {
         return dataDTO;
     }
     @Test
-    public void CODE_200_GetPlayerById_Test() {
+    void CODE_200_GetPlayerById_Test() {
         ResponseEntity<PlayerDTO> expected = ResponseEntity.ok(playerDTO);
 
         Mockito.when(playerService.getPlayerById(Mockito.any())).thenReturn(playerDTO);
@@ -96,7 +98,7 @@ public class PlayerApiDelegateImplTest {
     }
 
     @Test
-    public void CODE_500_GetPlayerByStringId_NumberFormatException_Test() {
+    void CODE_500_GetPlayerByStringId_NumberFormatException_Test() {
 
         NumberFormatException thrown = Assertions.assertThrows(NumberFormatException.class, () -> {
             playerApiDelegate.getPlayerById(Long.parseLong("Ten"));
@@ -107,7 +109,7 @@ public class PlayerApiDelegateImplTest {
     }
 
     @Test
-    public void CODE_200_getListPlayersByRank_Test(){
+    void CODE_200_getListPlayersByRank_Test(){
         ResponseEntity<List<PlayerDTO>> expected = ResponseEntity.ok(playerDTOList);
 
         Mockito.when(playerService.getListPlayersByRank()).thenReturn(playerDTOList);

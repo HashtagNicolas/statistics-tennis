@@ -3,13 +3,14 @@ package com.mas.statistics.tennis.controller;
 import com.mas.statistics.tennis.service.StatisticsService;
 import com.mas.statistics.tennis.util.ConstsUtils;
 import org.junit.Before;
-import org.junit.Test;
+import  org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +21,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SpringBootTest
+@AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
-public class StatisticsApiDelegateImplTest {
+class StatisticsApiDelegateImplTest {
 
     @InjectMocks
     private StatisticsApiDelegateImpl statisticsApiDelegate;
@@ -33,7 +35,7 @@ public class StatisticsApiDelegateImplTest {
 
     @Before
     public void setup(){
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         MockMvcBuilders.standaloneSetup(statisticsApiDelegate).build();
     }
 
@@ -46,7 +48,7 @@ public class StatisticsApiDelegateImplTest {
     }
 
     @Test
-    public void CODE_200_GetStatistics_Test() {
+    void CODE_200_GetStatistics_Test() {
         ResponseEntity<Map<String,String>> expected = ResponseEntity.ok(mapStatistics);
 
         Mockito.when(statisticsService.getStatistics()).thenReturn(mapStatistics);
